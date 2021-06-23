@@ -1,0 +1,110 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="UTF-8"/>
+  <title>test</title>
+  </head>
+  <body onload="init();">
+    <h1>Take a snapshot of the current video stream</h1>
+   Click on the Start WebCam button. Cameras' IDs:<span id='CameraIds'></span>
+     <p>
+    <button onclick="startWebcam();">Start WebCam</button>
+    <button onclick="stopWebcam();">Stop WebCam</button> 
+       <button onclick="snapshot();">Take Snapshot</button> 
+    </p>
+    <video width="320" height="240" id="video" controls="true" autoplay="true"></video>
+  <p>
+
+        Screenshots : </p>
+      <canvas  id="myCanvas" width="24" height="27" style="width:320px;height:240px;"></canvas>  
+  
+  <script>
+
+  
+  minPitch = 60;
+  maxPitch = 5000;
+  
+  
+   var canvas, ctx;
+
+      function init() {
+        // Get the canvas and obtain a context for
+        // drawing in it
+        canvas = document.getElementById("myCanvas");
+        ctx = canvas.getContext('2d');
+      }
+  
+    
+  var i = 2;
+  
+      //--------------------
+      // GET USER MEDIA CODE
+      //--------------------
+
+      var video;
+      var webcamStream;
+      
+//      navigator.getUserMedia({video: true},
+//      function(){
+//        navigator.mediaDevices.enumerateDevices()
+//.then(function(devices) {
+//var deviceIds = '';
+//debugger;
+//devices.forEach(function(device) {
+//deviceIds += device.deviceId + '<br/>';
+//});
+// document.querySelector('#CameraIds').innerHTML=deviceIds;
+// });
+// },
+// function(){});
+
+      function startWebcam() {
+        
+         audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            oscillators = new Array();
+          for(var oscNum=0; oscNum<27; oscNum++){
+              var oscillator = audioCtx.createOscillator();
+              var gainNode = audioCtx.createGain();
+
+              oscillator.connect(gainNode);
+              var panner = audioCtx.createStereoPanner();
+              gainNode.connect(panner);
+              panner.connect(audioCtx.destination);
+              oscillator.type = 'square';
+              oscillator.start();
+              oscillator.stop(300);
+              gainNode.gain.value = 0;
+              oscillators.push({oscillator: oscillator, gainer: gainNode, panner: panner});
+              }
+
+           
+           alert(1);
+          
+           
+           navigator.mediaDevices.getUserMedia (
+
+              // constraints
+              {
+                 video: { width: 640, height: 360, facingMode: "environment" },
+              }).then(
+
+              // successCallback
+              function(localMediaStream) {
+              alert(2);
+                 video = document.querySelector('video');
+                 webcamStream = localMediaStream;
+                 video.srcObject = localMediaStream;
+                 alert(3);
+              }
+           );
+           
+           
+           alert(4);
+          
+        }
+      
+
+
+  </script>
+  </body>
+</html>

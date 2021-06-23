@@ -1,0 +1,208 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="UTF-8"/>
+  <title>test</title>
+  </head>
+  <body onload="init();">
+    <h1>Take a snapshot of the current video stream</h1>
+   Click on the Start WebCam button. Cameras' IDs:<span id='CameraIds'></span>
+     <p>
+    <button onclick="startWebcam();">Start WebCam</button>
+    <button onclick="stopWebcam();">Stop WebCam</button> 
+       <button onclick="snapshot();">Take Snapshot</button> 
+    </p>
+    <video width="320" height="240" id="video" controls="true" autoplay="true"></video>
+<span> </span>
+<canvas  id="myCanvas" width="24" height="27" style="width:320px;height:240px;"></canvas>  
+  
+  <script>
+  
+  minPitch = 60;
+  maxPitch = 5000;
+  
+  
+    
+  var i = 2;
+  
+      //--------------------
+      // GET USER MEDIA CODE
+      //--------------------
+          navigator.getUserMedia = ( navigator.mediaDevices.getUserMedia ||
+                             navigator.webkitGetUserMedia ||
+                             navigator.mozGetUserMedia ||
+                             navigator.msGetUserMedia);
+
+      var video;
+      var webcamStream;
+      
+//      navigator.getUserMedia({video: true},
+//      function(){
+//        navigator.mediaDevices.enumerateDevices()
+//.then(function(devices) {
+//var deviceIds = '';
+//debugger;
+//devices.forEach(function(device) {
+//deviceIds += device.deviceId + '<br/>';
+//});
+// document.querySelector('#CameraIds').innerHTML=deviceIds;
+// });
+// },
+// function(){});
+
+      function startWebcam() {
+        if (navigator.getUserMedia) {
+        
+        
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            oscillators = new Array();
+          for(var oscNum=0; oscNum<27; oscNum++){
+              var oscillator = audioCtx.createOscillator();
+              var gainNode = audioCtx.createGain();
+
+              oscillator.connect(gainNode);
+              var panner = audioCtx.createStereoPanner();
+              gainNode.connect(panner);
+              panner.connect(audioCtx.destination);
+              oscillator.type = 'square';
+              oscillator.start();
+              oscillator.stop(300);
+              gainNode.gain.value = 0;
+              oscillators.push({oscillator: oscillator, gainer: gainNode, panner: panner});
+              }
+
+        
+        
+        
+           //var deviceId = document.querySelector('#DeviceId').value;
+           //navigator.getUserMedia (
+
+              //// constraints
+           //   {
+           //      video: { width: 192, height: 108 },
+           //      audio: false
+           //   },
+
+              //// successCallback
+           //   function(localMediaStream) {
+           //      video = document.querySelector('video');
+           //      webcamStream = localMediaStream;
+           //      console.log('here');
+           //      imageCapture = new ImageCapture(localMediaStream.getVideoTracks()[0]);
+           //      video.srcObject = localMediaStream;
+           //   },
+
+              //// errorCallback
+           //   function(err) {
+           //      console.log("The following error occured: " + err);
+           //   }
+           //);
+           
+           
+           
+           navigator.mediaDevices.getUserMedia (
+
+              // constraints
+              {
+                 video: { width: 640, height: 360, facingMode: "environment" },
+              }).then(
+
+              // successCallback
+              function(localMediaStream) {
+                 video = document.querySelector('video');
+                 webcamStream = localMediaStream;
+                 console.log('here');
+                 imageCapture = new ImageCapture(localMediaStream.getVideoTracks()[0]);
+                 video.srcObject = localMediaStream;
+              },
+
+              // errorCallback
+              function(err) {
+                 console.log("The following error occured: " + err);
+              }
+           );
+           
+           
+           
+           
+        } else {
+           console.log("getUserMedia not supported");
+        }  
+      }
+
+      function stopWebcam() {
+          webcamStream.stop();
+      }
+      //---------------------
+      // TAKE A SNAPSHOT CODE
+      //---------------------
+      var canvas, ctx;
+
+      function init() {
+        // Get the canvas and obtain a context for
+        // drawing in it
+        canvas = document.getElementById("myCanvas");
+        ctx = canvas.getContext('2d');
+      }
+      
+      setInterval(snapshot, 200);
+
+      function snapshot() {
+      if(!("imageCapture" in window))
+            return;
+         // Draws current image from the video element into the canvas
+         imageCapture.grabFrame()
+         .then(function(imageBitmap){
+               //imageBitmap = new Image();
+               //imageBitmap.crossOrigin = "Anonymous";
+               //imageBitmap.src = '1.jpg';
+               
+               //createImageBitmap(imageBitmap, {resizeWidth: 192, resizeHeight: 108}).then(function(imageBitmap){
+               //ctx.filter = "contrast(400%)";
+               ctx.filter = "saturate(0%)";
+               ctx.drawImage(imageBitmap, 0,0, canvas.width, canvas.height);
+               var imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+               
+      
+    
+    for(j=0;j<canvas.width;j++){
+         soundPan = (j*2-canvas.width)/canvas.width;
+    for(i=0;i<canvas.height;i++){
+    
+        var baseRef = i*canvas.width*4+j*4;
+        var r = imgData.data[baseRef];
+        var g = imgData.data[baseRef+1];
+        var b = imgData.data[baseRef+2];
+         
+         soundPitch = Math.pow(maxPitch - i/canvas.height*maxPitch, 2)/5000+minPitch;
+         soundVolume = Math.pow(r+g+b,1.5)/Math.pow(765,1.5)/canvas.height;
+         //soundVolume = (r+g+b)/765/canvas.height;
+         oscillators[i].oscillator.frequency.value=soundPitch;
+         oscillators[i].gainer.gain.value = soundVolume;
+         oscillators[i].panner.pan.value = soundPan;
+        //console.log(j + "," + i + ": " + soundPitch + " " + soundVolume + " " + (r+g+b));
+    }
+    //for(i=0;i<canvas.height;i++){
+     
+    //}
+    sleep(200/canvas.width);
+}
+for(i=0;i<canvas.height;i++){
+     oscillators[i].gainer.gain.value = 0;
+    }
+    
+               });
+              //});
+      }
+      
+      function sleep(milliseconds) {
+  const date = Date.now();
+  let currentDate = null;
+  do {
+    currentDate = Date.now();
+  } while (currentDate - date < milliseconds);
+}
+
+  </script>
+  </body>
+</html>
