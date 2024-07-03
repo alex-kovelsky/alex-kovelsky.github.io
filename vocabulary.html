@@ -1,8 +1,40 @@
 <html>
   <head>
-    
+    <style>
+      iframe {
+        width: 100%;
+        height: 100;
+      }
+    </style>
+    <script>
+      function httpGetAsync(theUrl, callback)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            callback(xmlHttp.responseText);
+    }
+    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlHttp.send(null);
+}
+
+      function addNewWord(){
+        var urlBase = "https://script.google.com/macros/s/AKfycbwfGK6f4ov5YuzoizBqKtaJIvYbebY9ZWiKLkT2MR35gIJHbaVwZ6AiCWRCadl5eRMnpw/exec";
+        var parameters = document.getElementById("AddWordInput").value;
+         httpGetAsync(urlBase + "?params=" + parameters, newWordAdded);
+      }
+
+      function newWordAdded(response){
+        document.getElementById("result").innerHTML=response;
+      };
+
+      
+    </script>
   </head>
   <body>
+    <input type="text" id="AddWordInput"></input>
+    <input type="button" onclick="">Add</input>
+    <span id="result"></span>
     <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vThkBTKomeOtFrwg6BhfB-llJDpKVXg2Q07r3MweWq3y5ld4xtret3dstDr_ZHJuyXeTHVTa9uCdlHC/pubhtml?gid=0&amp;single=true&amp;widget=true&amp;headers=false"></iframe>
   </body>
 </html>
