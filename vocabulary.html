@@ -15,6 +15,7 @@
             callback(xmlHttp.responseText);
     }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
+    xmlhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     xmlHttp.send(null);
 }
 
