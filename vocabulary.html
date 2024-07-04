@@ -20,15 +20,16 @@
 }
 
       function addNewWord(){
-        var urlBase = "https://script.google.com/macros/s/AKfycbzRpxQi5LVa8-hR2hjhB5KqNIg-7wfxqYeDDD_mDZQlF-RuCSfD5dksEoxTy8kSWF3LvQ/exec";
+        var urlBase = "https://script.google.com/macros/s/AKfycbzpGjwD9wtfPBhQgncQ8Twiw6W1z1KWL4RGMutD91EJWe80uAhYTe8DH1BmgCMt10wMhw/exec";
         var parameters = document.getElementById("AddWordInput").value + ";;;" +
           document.getElementById("AddWordTranslationInput").value + ";;;" +
           document.getElementById("AddWordCommentsInput").value;
          httpGetAsync(urlBase + "?params=" + parameters, newWordAdded);
       }
 
-      function newWordAdded(response){
-        document.getElementById("result").innerHTML=response;
+      async function newWordAdded(response){
+        var text = await response.text();
+        document.getElementById("result").innerHTML=text;
       };
 
       
