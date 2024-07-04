@@ -26,6 +26,9 @@
           document.getElementById("AddWordTranslationInput").value + ";;;" +
           document.getElementById("AddWordCommentsInput").value;
          httpGetAsync(urlBase + "?params=" + parameters, newWordAdded);
+         document.getElementById("AddWordInput").value = "";
+          document.getElementById("AddWordTranslationInput").value = "";
+          document.getElementById("AddWordCommentsInput").value = "";
       }
 
       async function newWordAdded(response){
@@ -33,6 +36,11 @@
         document.getElementById("result").innerHTML=text;
       };
 
+      function checkEnter() {
+    if(event.keyCode == 13) {
+        addNewWord();
+    }
+}
       
     </script>
   </head>
@@ -43,8 +51,8 @@
     margin-bottom: 0;
     position: relative;">
     <input type="text" id="AddWordInput"></input>
-    <input type="text" id="AddWordTranslationInput"></input>
-    <input type="text" id="AddWordCommentsInput"></input>
+    <input type="text" id="AddWordTranslationInput" onkeydown="checkEnter()"></input>
+    <input type="text" id="AddWordCommentsInput" onkeydown="checkEnter()"></input>
     <input type="button" onclick="addNewWord()" value="Add"></input>
     <span id="result"></span>
     </p>
