@@ -9,14 +9,14 @@
     <script>
       function httpGetAsync(theUrl, callback)
 {
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() { 
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            callback(xmlHttp.responseText);
-    }
-    xmlHttp.open("GET", theUrl, true); // true for asynchronous 
-    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xmlHttp.send(null);
+  fetch(theUrl, {
+      redirect: "follow",
+      method: "GET",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    }).then(callback);
+    
 }
 
       function addNewWord(){
