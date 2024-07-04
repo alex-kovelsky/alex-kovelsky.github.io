@@ -21,7 +21,7 @@
 }
 
       function addNewWord(){
-        var urlBase = "https://script.google.com/macros/s/AKfycbyKGg66ZyASkCprM5ZJFIDmn-_e6I8Sb36dabJN8gX_rdWwhoMT0IlxuJVplLWs7ruT/exec";
+        var urlBase = "https://script.google.com/macros/s/AKfycbyxgePvQ9IjubK-FMEraiW43yt0LBpF_4hlt3C9UwoOqbjOL8hFZ0NWNJEyiYzBHmcI4A/exec";
         var parameters = document.getElementById("AddWordInput").value + ";;;" +
           document.getElementById("AddWordTranslationInput").value + ";;;" +
           document.getElementById("AddWordCommentsInput").value;
@@ -50,10 +50,11 @@
     padding-bottom: 1em;
     margin-bottom: 0;
     position: relative;">
-    <input type="text" id="AddWordInput"></input>
-    <input type="text" id="AddWordTranslationInput" onkeydown="checkEnter()"></input>
-    <input type="text" id="AddWordCommentsInput" onkeydown="checkEnter()"></input>
+    <input style="width: 25%;" type="text" id="AddWordInput"></input>
+    <input style="width: 40%;" type="text" id="AddWordTranslationInput" onkeydown="checkEnter()"></input>
+    <input style="width: 20%;" type="text" id="AddWordCommentsInput" onkeydown="checkEnter()"></input>
     <input type="button" onclick="addNewWord()" value="Add"></input>
+    <br/>
     <span id="result"></span>
     </p>
     <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vThkBTKomeOtFrwg6BhfB-llJDpKVXg2Q07r3MweWq3y5ld4xtret3dstDr_ZHJuyXeTHVTa9uCdlHC/pubhtml?gid=1650902025&amp;single=true&amp;widget=false&amp;headers=false"></iframe>
