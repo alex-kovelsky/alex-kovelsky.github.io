@@ -25,7 +25,7 @@
         var parameters = document.getElementById("AddWordInput").value + ";;;" +
           document.getElementById("AddWordTranslationInput").value + ";;;" +
           document.getElementById("AddWordCommentsInput").value;
-         httpGetAsync(urlBase + "?params=" + JSON.stringify(parameters), newWordAdded);
+         httpGetAsync(urlBase + "?params=" + encodeURIComponent(JSON.stringify(parameters)), newWordAdded);
          document.getElementById("AddWordInput").value = "";
           document.getElementById("AddWordTranslationInput").value = "";
           document.getElementById("AddWordCommentsInput").value = "";
