@@ -2,6 +2,7 @@
   <head>
     <style>
       iframe {
+        margin-top: -25px;
         width: 100%;
         height: 100%;
       }
@@ -36,12 +37,17 @@
     </script>
   </head>
   <body>
+    <p style="
+    background: white;
+    padding-bottom: 1em;
+    margin-bottom: 0;
+    position: relative;">
     <input type="text" id="AddWordInput"></input>
     <input type="text" id="AddWordTranslationInput"></input>
     <input type="text" id="AddWordCommentsInput"></input>
     <input type="button" onclick="addNewWord()" value="Add"></input>
     <span id="result"></span>
-    <hr/>
+    </p>
     <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vThkBTKomeOtFrwg6BhfB-llJDpKVXg2Q07r3MweWq3y5ld4xtret3dstDr_ZHJuyXeTHVTa9uCdlHC/pubhtml?gid=1650902025&amp;single=true&amp;widget=false&amp;headers=false"></iframe>
   </body>
 </html>
