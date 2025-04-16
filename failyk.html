@@ -4,19 +4,31 @@
   function downloadFile(link, filename) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', link, true);
-    xhr.responseType = 'blob'; // Set the response type to blob
+    xhr.responseType = 'arraybuffer'; // Use arraybuffer for binary data
 
     xhr.onload = function () {
       if (xhr.status === 200) {
-        var blob = xhr.response;
-        var url = window.URL.createObjectURL(blob);
+        var arrayBuffer = xhr.response;
+        var binary = '';
+        var bytes = new Uint8Array(arrayBuffer);
+
+        for (var i = 0; i < bytes.length; i++) {
+          binary += String.fromCharCode(bytes[i]);
+        }
+
+        // Convert binary data to Base64
+        var base64 = btoa(binary);
+
+        // Construct data URL
+        var dataUrl = 'data:application/octet-stream;base64,' + base64;
+
+        // Trigger download
         var anchor = document.createElement('a');
-        anchor.href = url;
+        anchor.href = dataUrl;
         anchor.download = filename;
         document.body.appendChild(anchor);
         anchor.click();
         document.body.removeChild(anchor);
-        window.URL.revokeObjectURL(url);
       } else {
         console.error('Failed to download file:', xhr.statusText);
       }
