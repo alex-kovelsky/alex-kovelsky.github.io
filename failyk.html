@@ -20,8 +20,6 @@
           for (var i = 0; i < li.length; i++) {
             const a = li[i].getElementsByTagName("a")[0];
             const txtValue = a.innerHTML || a.innerText;
-                alert(txtValue.indexOf(input.value));
-                alert(txtValue.toLowerCase().includes(filter));
             li[i].style.display = txtValue.toLowerCase().includes(filter) ? "" : "none";
           }
         }
