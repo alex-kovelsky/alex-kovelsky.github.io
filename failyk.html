@@ -13,15 +13,15 @@
 //}
             
         function filterFiles() {
-              alert("search start");
           const input = document.getElementById("searchBox");
           const filter = input.value.toLowerCase();
           const ul = document.getElementById("fileList");
           const li = ul.getElementsByTagName("li");
-              alert(li.length);
           for (var i = 0; i < li.length; i++) {
             const a = li[i].getElementsByTagName("a")[0];
             const txtValue = a.innerHTML || a.innerText;
+                alert(txtValue.indexOf(input.value));
+                alert(txtValue.toLowerCase().includes(filter));
             li[i].style.display = txtValue.toLowerCase().includes(filter) ? "" : "none";
           }
         }
