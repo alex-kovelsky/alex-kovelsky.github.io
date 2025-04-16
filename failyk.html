@@ -1,13 +1,17 @@
 
 <html><head></head><body><h2>Files in Folder</h2>
 <input type="text" id="searchBox" placeholder="Search files..." onkeyup="filterFiles()" style="padding: 6px; width: 50%; margin-bottom: 10px;"/>
-<input type="button" onclick="filterFiles()" value="Search"/>
-<ul id="fileList"><li><a href="?fileId=1o6lO3NfIUFozkl3RZWukIZeSnCuJg_kV" target="_blank"><pre>2025-04-14T23:19 -     0.10MB       11 ChatGPT Image Apr 15, 2025, 12_05_21 AM - alexkovelsky.png</pre></a></li><li><a href="?fileId=1JqeKmQ9j2tLOtesRbpMefVBSCiJwk4n_" target="_blank"><pre>2025-04-15T00:06 -     0.03MB       поглянь Бог сам - alexkovelsky.doc</pre></a></li><li><a href="?fileId=1zsqfqWLGFHGImTYes8OWiqHD5bP-tpBp" target="_blank"><pre>2025-04-15T00:06 -     0.03MB       поглянь Бог сам (1) - alexkovelsky.doc</pre></a></li><li><a href="?fileId=181UFPLZIOfcWrHa6sN3wpAh4ifISPcqV" target="_blank"><pre>2025-04-15T00:06 -     0.04MB       Втілився Бог - alexkovelsky.doc</pre></a></li><li><a href="?fileId=1sojkpOXMZhkvxkK09bZUEk_BVmb1j53O" target="_blank"><pre>2025-04-15T00:06 -    23.70MB       EarFun Air Pro 3 - User Manual - alexkovelsky.pdf</pre></a></li></ul>
+<ul id="fileList"><li><a href="/failyk/11_ChatGPT_Image_Apr_15__2025__12_05_21_AM_-_alexkovelsky.png_1o6" target="_blank"><pre>2025-04-14T23:19     0.10MB       11 ChatGPT Image Apr 15, 2025, 12_05_21 AM - alexkovelsky.png</pre></a></li>
+<li><a href="/failyk/-_alexkovelsky.doc_1Jq" target="_blank"><pre>2025-04-15T00:06     0.03MB       поглянь Бог сам - alexkovelsky.doc</pre></a></li>
+<li><a href="/failyk/1__-_alexkovelsky.doc_1zs" target="_blank"><pre>2025-04-15T00:06     0.03MB       поглянь Бог сам (1) - alexkovelsky.doc</pre></a></li>
+<li><a href="/failyk/-_alexkovelsky.doc_181" target="_blank"><pre>2025-04-15T00:06     0.04MB       Втілився Бог - alexkovelsky.doc</pre></a></li>
+<li><a href="/failyk/EarFun_Air_Pro_3_-_User_Manual_-_alexkovelsky.pdf_1so" target="_blank"><pre>2025-04-15T00:06    23.70MB       EarFun Air Pro 3 - User Manual - alexkovelsky.pdf</pre></a></li>
+</ul>
 <script>
 if (!String.prototype.includes) {
-String.prototype.includes = function() {
-  return String.prototype.indexOf.apply(this, arguments) !== -1;
-};
+  String.prototype.includes = function() {
+    return String.prototype.indexOf.apply(this, arguments) !== -1;
+  };
 }
 function filterFiles() {
   const input = document.getElementById("searchBox");
