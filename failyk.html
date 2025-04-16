@@ -21,10 +21,8 @@
               alert(li.length);
           for (var i = 0; i < li.length; i++) {
             const a = li[i].getElementsByTagName("a")[0];
-           // const txtValue = a.innerText;
-                alert("txtValue");
-              //  alert(txtValue.toLowerCase().includes(filter));
-          //  li[i].style.display = txtValue.toLowerCase().includes(filter) ? "" : "none";
+            const txtValue = a.innerHTML || a.innerText;
+            li[i].style.display = txtValue.toLowerCase().includes(filter) ? "" : "none";
           }
         }
       </script>
