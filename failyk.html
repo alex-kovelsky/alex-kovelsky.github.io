@@ -27,12 +27,7 @@
         alert('base64 ready');
 
         // Trigger download
-        var anchor = document.createElement('a');
-        anchor.href = dataUrl;
-        anchor.download = filename;
-        document.body.appendChild(anchor);
-        anchor.click();
-        document.body.removeChild(anchor);
+        window.location.href = dataUrl;
       } else {
         console.error('Failed to download file:', xhr.statusText);
       }
