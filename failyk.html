@@ -2,12 +2,14 @@
   <html><head>
   <script>
   function downloadFile(link, filename) {
+    alert('downloading');
     var xhr = new XMLHttpRequest();
     xhr.open('GET', link, true);
     xhr.responseType = 'arraybuffer'; // Use arraybuffer for binary data
 
     xhr.onload = function () {
       if (xhr.status === 200) {
+        alert('fetched');
         var arrayBuffer = xhr.response;
         var binary = '';
         var bytes = new Uint8Array(arrayBuffer);
@@ -21,6 +23,8 @@
 
         // Construct data URL
         var dataUrl = 'data:application/octet-stream;base64,' + base64;
+
+        alert('base64 ready');
 
         // Trigger download
         var anchor = document.createElement('a');
@@ -44,6 +48,10 @@
 </head><body>
   <input type="text" id="searchBox" placeholder="Search files..." onkeyup="filterFiles()" style="padding: 6px; width: 50%; margin-bottom: 10px;"/>
   <ul id="fileList"><li>
+    <a href="/failyk/Copy_of_%D0%9C%D0%BE%D1%80%D1%81%D1%8C%D0%BA%D0%B5_%D0%B2%D0%BE%D0%B2%D1%87%D0%B5%D0%BD%D1%8F_-_alexkovelsky_1Zi.mobi" onclick="downloadFile('/failyk/Copy_of_%D0%9C%D0%BE%D1%80%D1%81%D1%8C%D0%BA%D0%B5_%D0%B2%D0%BE%D0%B2%D1%87%D0%B5%D0%BD%D1%8F_-_alexkovelsky_1Zi.mobi', 'Copy_of_Морське_вовченя_-_alexkovelsky_1Zi.mobi'); return false;">
+      <pre>2025-04-16T22:41     0.64MB       Copy of Морське вовченя - alexkovelsky.mobi</pre>
+    </a></li>
+<li>
     <a href="/failyk/%D0%9C%D0%BE%D1%80%D1%81%D1%8C%D0%BA%D0%B5_%D0%B2%D0%BE%D0%B2%D1%87%D0%B5%D0%BD%D1%8F_-_alexkovelsky_1T5.txt" onclick="downloadFile('/failyk/%D0%9C%D0%BE%D1%80%D1%81%D1%8C%D0%BA%D0%B5_%D0%B2%D0%BE%D0%B2%D1%87%D0%B5%D0%BD%D1%8F_-_alexkovelsky_1T5.txt', 'Морське_вовченя_-_alexkovelsky_1T5.txt'); return false;">
       <pre>2025-04-16T21:40     0.64MB       Морське вовченя - alexkovelsky.txt</pre>
     </a></li>
