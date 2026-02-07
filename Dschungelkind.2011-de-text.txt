@@ -1,5 +1,9 @@
-
-
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+<div style="width: 100%;">
 Ich möchte eine Geschichte erzählen,
 
 die Geschichte eines Mädchens, das
@@ -1704,4 +1708,5 @@ Ich habe erkannt,
 
 dass ich in meinem Herzen immer
 ein Dschungelkind bleiben werde.
-
+</div>
+</html>
